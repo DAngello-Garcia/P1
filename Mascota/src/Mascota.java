@@ -52,9 +52,8 @@ public class Mascota {
 	public static double calcularAreaCuerpo(double a)
 	{
 		double area, areaCuerpo, areaBrazos;
-		double baseB = Math.sqrt(Math.pow(a/8, 2) - Math.pow(0.7, 2));
 		double alturaC = Math.sqrt(Math.pow((a/8)+1, 2) - Math.pow(a/8, 2));
-		areaBrazos = calcularAreaTriangulo(baseB, a/8);
+		areaBrazos = calcularAreaTriangulo(0.7, a/8);
 		areaCuerpo = calcularAreaTriangulo(a/8, alturaC);
 		area = (2*areaBrazos) + areaCuerpo;
 		return area;
