@@ -21,24 +21,46 @@ public class Mascota {
 		JOptionPane.showMessageDialog(null, mensaje);
 	}
 	
+	/**
+	 * Calcula el área de un rectángulo
+	 * @param largo
+	 * @param ancho
+	 * @return área de un rectángulo
+	 */
 	public static double calcularAreaRectangulo(double largo, double ancho)
 	{
 		double area = largo*ancho;
 		return area;
 	}
 	
+	/**
+	 * Calcula el área de un cuadrado
+	 * @param lado
+	 * @return área de un cuadrado
+	 */
 	public static double calcularAreaCuadrado(double lado)
 	{
 		double area = lado*lado;
 		return area;
 	}
 	
+	/**
+	 * Calcula el área de un triángulo
+	 * @param base
+	 * @param altura
+	 * @return
+	 */
 	public static double calcularAreaTriangulo(double base, double altura)
 	{
 		double area = (base*altura)/2;
 		return area;
 	}
 	
+	/**
+	 * Calcula el área de la cabeza de la mascota
+	 * @param a
+	 * @return área de la cabeza
+	 */
 	public static double calcularAreaCabeza(double a)
 	{
 		double area, areaOrejas, areaOjos, areaBoca;
@@ -49,6 +71,11 @@ public class Mascota {
 		return area;
 	}
 	
+	/**
+	 * Calcula el área del cuerpo de la mascota
+	 * @param a
+	 * @return área del cuerpo
+	 */
 	public static double calcularAreaCuerpo(double a)
 	{
 		double area, areaCuerpo, areaBrazos;
