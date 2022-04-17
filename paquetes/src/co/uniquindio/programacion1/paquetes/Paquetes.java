@@ -38,5 +38,18 @@ public class Paquetes {
 		return r;
 	}
 
+	public static ArrayList <Integer> bubbleSort(ArrayList <Integer> a) {
+		int n = a.size(), s = 0;
+		for(int i = 1; i < n; i++) {
+			for(int j = 0; j < n-1; j++) {
+				if(a.get(j) > a.get(j+1)) {
+					s = a.get(j);
+					a.set(j, a.get(j+1));
+					a.set(j+1, s);
+				}
+			}
+		}
+		return a;
+	}
 	
 }
