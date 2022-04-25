@@ -1,3 +1,4 @@
+import java.util.Random;
 
 public class Doce {
 	/*
@@ -5,7 +6,11 @@ public class Doce {
 	 */
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		int max = 52, min = 1, res;
+		Random r = new Random();
+		for(int i = 0; i < 52; i++) {
+			System.out.println(""+(min + (int)(Math.random() * (max - min))));
+		}
 
 	}
 	

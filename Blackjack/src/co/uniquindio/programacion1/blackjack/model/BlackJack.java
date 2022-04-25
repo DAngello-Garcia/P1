@@ -1,6 +1,6 @@
 package co.uniquindio.programacion1.blackjack.model;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
+import java.util.Collections;
 
 /**
 *
@@ -15,41 +15,40 @@ public class BlackJack {
  * Se declaran las variables de la clase	
  */
 final  int MAX_CARTAS_PINTA = 13;
-final  int REVERSO = 52;
 private ArrayList <Integer> cartas;
+private ArrayList <Integer> baraja;
 
 /**
  * Metodo para reservarle memoria al ArrayList
  */
-public BlackJack()
-{
-cartas= new ArrayList<>();	
+public BlackJack() {
+	cartas = new ArrayList<>();
+	baraja = new ArrayList<>();
 }
 
 /**
- * Permite agregar una carta 
- * @param n El numero de la carta
+ * Mezcla las cartas
+ * @param a ArrayList de baraja
  */
-public void agregarCarta(int n)
-{
-cartas.add(n);	
-}
-
-/**
- * Sólo a modo de ejemplo para copiar
- * lo que hay en un arreglo a un Arraylist
- * @param cartas1 El arreglo a copiar
- */
-public void iniciarEnsayo(int cartas1[])
-{
-	for (int i=0; i<cartas1.length; i++)
-	{
-		cartas.add(cartas1[i]);
+public void mezclarBaraja() {
+	int max = 52, min = 1;
+	for(int i = min; i <= max; i++) {
+		baraja.add(i);
 	}
+	Collections.shuffle(baraja);
 }
 
 /**
- * Devuelve el Arraylist con las cartas ingresadas
+ * Permite repartir una carta
+ */
+public void repartirCartas() {
+	cartas.add(baraja.get(0));
+	baraja.remove(0);
+}
+
+/**
+ * Devuelve el Arraylist con las cartas 
+ * que están en el tablero
  * hasta el momento
  * @return El ArrayList
  */
@@ -58,25 +57,15 @@ public ArrayList<Integer> getCartas() {
 }
 
 /**
- * Permite inicializar las cartas con el arraylist
- * recibido por parámetro
- * @param cartas
- */
-public void setCartas(ArrayList<Integer> cartas) {
-	this.cartas = cartas;
-}
-
-/**
  * Permite obtener el tipo de carta
  * @param n El número de la carta 
  * @return El tipo de la carta
  */
-public  int obtenerTipoCarta(int n)
-{
-int tipoCarta;
-inicializarReverso(n);
-tipoCarta = n % MAX_CARTAS_PINTA;
-return tipoCarta;
+public  int obtenerTipoCarta(int n) {
+	int tipoCarta;
+	inicializarReverso(n);
+	tipoCarta = n % MAX_CARTAS_PINTA;
+	return tipoCarta;
 }
 
 /**
@@ -84,20 +73,18 @@ return tipoCarta;
  * @param n El número de la carta
  * @return El tipoPinta
  */
-public int obtenerTipoPinta(int n)
-{
-int tipoPinta;
-int tipoCarta=obtenerTipoCarta(n);
-tipoPinta = (n - tipoCarta) / MAX_CARTAS_PINTA;
-return tipoPinta;
+public int obtenerTipoPinta(int n) {
+	int tipoPinta;
+	int tipoCarta=obtenerTipoCarta(n);
+	tipoPinta = (n - tipoCarta) / MAX_CARTAS_PINTA;
+	return tipoPinta;
 }
 
 /**
  * Permite inicializar el reverso
  * @param n El número de la carta
  */ 
-public  void inicializarReverso (int n)
-{
+public  void inicializarReverso (int n){
 	if (n < 0 || n > REVERSO) {
 	     n = REVERSO;
 	  }
@@ -117,7 +104,9 @@ public  int getMaxCartasPinta() {
  * @return El reverso
  */
 public int getReverso() {
-	return REVERSO;
+	int n = baraja.get(0);
+	baraja.remove(0);
+	return n;
 }
 
 /**
@@ -127,8 +116,7 @@ public int getReverso() {
  * @return El número correspondiente a la carta que está
  * en la posicion
  */
-public  int devolverCartaPosicion(int i)
-{
+public  int devolverCartaPosicion(int i) {
 	return cartas.get(i);
 	
 }
