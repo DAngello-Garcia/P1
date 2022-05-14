@@ -31,7 +31,7 @@ public class VentanaPrincipal {
   * @param args Los argumentos de la línea de comandos
   * @throws IOException
   */
-    public static void main(String[] args) throws IOException 
+    public static void main(String[] args) throws IOException
     {
         ImageIcon a[];
         int respuesta, reverso;        
@@ -50,6 +50,7 @@ public class VentanaPrincipal {
         miBlackJack.repartirCartasOpo();
         System.out.println("usuario: "+ miBlackJack.cartasOpo.get(1));
         
+        System.out.println("hola");
         
         a = new ImageIcon[miBlackJack.getCartas(52).size()]; //tamaño de las cartas en la mesa
         a = inicializarImageIcon(miBlackJack.getCartas(52), miBlackJack);
