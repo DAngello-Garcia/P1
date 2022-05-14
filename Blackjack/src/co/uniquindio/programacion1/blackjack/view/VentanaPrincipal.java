@@ -16,6 +16,7 @@ import co.uniquindio.programacion1.blackjack.model.BlackJack;
  * @author SoniaJaramillo 
  * @author YordanArenas
  * @author DAngelloGarcia
+ * @author SantiagoSepulveda
  */
 public class VentanaPrincipal {
 
@@ -33,21 +34,31 @@ public class VentanaPrincipal {
     public static void main(String[] args) throws IOException 
     {
         ImageIcon a[];
-        int respuesta;
-        
-        BlackJack miBlackJack= new BlackJack();
-        
-        ImageIcon miImage= obtenerImagenCarta(25, miBlackJack);
-        mostrarImagenCarta(miImage, 11);
+        int respuesta, reverso;        
+        BlackJack miBlackJack = new BlackJack();
 
-        a = new ImageIcon[3];
-       
-        miBlackJack.agregarCarta(miBlackJack.getReverso());
-        miBlackJack.agregarCarta(23);
-        miBlackJack.agregarCarta(45);
-        a= inicializarImageIcon(miBlackJack.getCartas(), miBlackJack);
-        respuesta = preguntarImagenCarta(a, 17);
-
+        //ImageIcon miImage = obtenerImagenCarta(25, miBlackJack);
+        //mostrarImagenCarta(miImage, 11);
+        
+        miBlackJack.mezclarBaraja();
+        reverso = miBlackJack.getReverso();
+        System.out.println("reverso : "+ reverso);
+        miBlackJack.repartirCartasOpo();
+        System.out.println("usuario: "+ miBlackJack.cartasOpo.get(0));
+        miBlackJack.repartirCartasDealer();
+        System.out.println("dealer: "+ miBlackJack.cartasDealer.get(0));
+        miBlackJack.repartirCartasOpo();
+        System.out.println("usuario: "+ miBlackJack.cartasOpo.get(1));
+        
+        
+        a = new ImageIcon[miBlackJack.getCartas(52).size()]; //tamaño de las cartas en la mesa
+        a = inicializarImageIcon(miBlackJack.getCartas(52), miBlackJack);
+        
+        //ImageIcon miImage = obtenerImagenCarta(miBlackJack.getReverso(), miBlackJack);
+        mostrarImagenCarta(a);
+        
+        respuesta = preguntarImagenCarta(a);
+        
         if (respuesta == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(null, "Excelente, una nueva carta");
         } else {
@@ -63,13 +74,10 @@ public class VentanaPrincipal {
   * @return
   * @throws IOException
   */
-    public static ImageIcon[] inicializarImageIcon(ArrayList <Integer> aux, BlackJack miBlackJack) throws IOException
-    {
-    ImageIcon	 a[] = new ImageIcon[aux.size()];	
-    for(int i=0; i<aux.size(); i++)	
-    {
-     	a[i]= obtenerImagenCarta(aux.get(i), miBlackJack);
-    	
+    public static ImageIcon[] inicializarImageIcon(ArrayList <Integer> aux, BlackJack miBlackJack) throws IOException {
+    ImageIcon a[] = new ImageIcon[aux.size()];	
+    for(int i=0; i<aux.size(); i++) {
+     	a[i]= obtenerImagenCarta(aux.get(i), miBlackJack);    	
     }
     return a;
     }
@@ -82,14 +90,13 @@ public class VentanaPrincipal {
      * @return Imagen de la carta indicada o el reverso
      * @throws IOException
      */
-    public static ImageIcon obtenerImagenCarta(int n, BlackJack miB) throws IOException 
-    {
+    public static ImageIcon obtenerImagenCarta(int n, BlackJack miB) throws IOException {
     	int tipoCarta, tipoPinta;
         BufferedImage baraja;
         ImageIcon carta;
 
-        tipoCarta=miB.obtenerTipoCarta(n);
-        tipoPinta=miB.obtenerTipoPinta(n);
+        tipoCarta = miB.obtenerTipoCarta(n);
+        tipoPinta = miB.obtenerTipoPinta(n);
         baraja = ImageIO.read(VentanaPrincipal.class.getResource("baraja-poker.jpg"));
         carta = new ImageIcon(baraja.getSubimage(tipoCarta * MAX_ANCHO_CARTA, tipoPinta * MAX_LARGO_CARTA, MAX_ANCHO_CARTA, MAX_LARGO_CARTA));
 
@@ -104,9 +111,8 @@ public class VentanaPrincipal {
      * JOptionPane
      * @param valor Valor de la carta o cartas
      */
-    public static void mostrarImagenCarta(Object carta, int valor) 
-    {
-        JOptionPane.showMessageDialog(null, carta, "Valor: " + valor, JOptionPane.PLAIN_MESSAGE);
+    public static void mostrarImagenCarta(Object carta) {
+        JOptionPane.showMessageDialog(null, carta, "Cartas ", JOptionPane.PLAIN_MESSAGE);
     }
 
     /**
@@ -117,9 +123,8 @@ public class VentanaPrincipal {
      * JOptionPane
      * @param valor Valor de la carta o cartas
      */
-    public static int preguntarImagenCarta(Object carta, int valor) 
-    {
-        return JOptionPane.showConfirmDialog(null, carta, "Valor: " + valor, JOptionPane.YES_NO_OPTION, 0, new ImageIcon(VentanaPrincipal.class.getResource("Pregunta.png")));
+    public static int preguntarImagenCarta(Object carta) {
+        return JOptionPane.showConfirmDialog(null, carta, "Pregunta ", JOptionPane.YES_NO_OPTION, 0, new ImageIcon(VentanaPrincipal.class.getResource("Pregunta.png")));
     }
 
  
