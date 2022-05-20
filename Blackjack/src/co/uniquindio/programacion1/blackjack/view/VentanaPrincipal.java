@@ -48,7 +48,7 @@ public class VentanaPrincipal {
         miBlackJack.repartirCartasDealer();
         System.out.println("dealer: "+ miBlackJack.cartasDealer.get(0));
         miBlackJack.repartirCartasOpo();
-        System.out.println("usuario: "+ miBlackJack.cartasOpo.get(1));
+        System.out.println("usuario: "+ "/n"+miBlackJack.cartasOpo.get(1));
         
         a = new ImageIcon[miBlackJack.getCartas(52).size()]; //tamaño de las cartas en la mesa
         a = inicializarImageIcon(miBlackJack.getCartas(52), miBlackJack);

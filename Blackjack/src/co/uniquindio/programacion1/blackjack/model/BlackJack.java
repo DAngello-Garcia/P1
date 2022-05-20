@@ -130,6 +130,7 @@ public class BlackJack {
 		
 		ArrayList<Integer> puntaje = new ArrayList<>();
 		int numero = 0;
+		int as = 0;
 		
 		for (int i = 0; i<cartasOpo.size(); i++)
 		{
@@ -142,8 +143,9 @@ public class BlackJack {
 			{
 				if(numero == 0)
 				{
-					puntaje.set(i, 1);
-					verificarPuntaje();
+					as = verificarPuntaje(puntaje);
+					puntaje.set(i, as);
+					
 				}
 				else
 				{
@@ -210,6 +212,17 @@ public class BlackJack {
 		return as;
 	}
 	
+	public boolean verificar17(ArrayList<Integer> puntaje)
+	{
+		boolean is17 = true;
+		int suma= obtenerPuntaje(puntaje);
+		
+		if(suma < 17)
+			
+			is17 = false;
+		
+		return is17;	
+	}
 	
 	
 }
