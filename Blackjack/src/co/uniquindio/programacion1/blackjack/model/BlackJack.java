@@ -126,7 +126,90 @@ public class BlackJack {
 		
 	}*/
 	
-	public void verificarPuntaje() {
+	public ArrayList<Integer> asignarPuntajeOpo(ArrayList<Integer> cartasOpo) {
+		
+		ArrayList<Integer> puntaje = new ArrayList<>();
+		int numero = 0;
+		
+		for (int i = 0; i<cartasOpo.size(); i++)
+		{
+			numero = obtenerTipoCarta(cartasOpo.get(i));
+			if(numero> 0 && numero < 10)
+			{
+				puntaje.set(i, numero +1);
+			}
+			else
+			{
+				if(numero == 0)
+				{
+					puntaje.set(i, 1);
+					verificarPuntaje();
+				}
+				else
+				{
+					puntaje.set(i, 10);
+				}
+			}
+		}
+		return puntaje;
 	
 	}
+	
+	public ArrayList<Integer> asignarPuntajeDealer(ArrayList<Integer> cartasDealer) {
+		
+		ArrayList<Integer> puntaje = new ArrayList<>();
+		int numero = 0;
+		int as=0;
+		
+		for (int i = 0; i<cartasDealer.size(); i++)
+		{
+			numero = obtenerTipoCarta(cartasDealer.get(i));
+			if(numero> 0 && numero < 10)
+			{
+				puntaje.set(i, numero +1);
+			}
+			else
+			{
+				if(numero == 0)
+				{
+					as = verificarPuntaje(puntaje);
+					puntaje.set(i, as);
+					
+				}
+				else
+				{
+					puntaje.set(i, 10);
+				}
+			}
+		}
+		return puntaje;
+	
+	}
+	
+	public int obtenerPuntaje(ArrayList<Integer> puntaje)
+	{
+		int suma = 0; 
+		
+		for (int i = 0; i < puntaje.size(); i++)
+		{
+			suma += puntaje.get(i);
+		}
+		return suma;		
+	}
+	
+	public int verificarPuntaje(ArrayList<Integer> puntaje)
+	{
+		int suma= obtenerPuntaje(puntaje);
+		int as=1;
+		
+		if(suma < 10)
+		{
+			as = 11;
+		}
+		
+		return as;
+	}
+	
+	
+	
 }
