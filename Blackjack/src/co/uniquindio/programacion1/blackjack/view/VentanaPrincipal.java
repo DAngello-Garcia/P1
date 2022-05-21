@@ -40,7 +40,7 @@ public class VentanaPrincipal {
 
         //ImageIcon miImage = obtenerImagenCarta(25, miBlackJack);
         //mostrarImagenCarta(miImage, 11);
-       /*
+       
         miBlackJack.mezclarBaraja();
         reverso = miBlackJack.getReverso();
         System.out.println("reverso : "+ reverso);
@@ -50,7 +50,7 @@ public class VentanaPrincipal {
         System.out.println("dealer: "+ miBlackJack.cartasDealer.get(0));
         miBlackJack.repartirCartasOpo();
         System.out.println("usuario: "+ "/n"+miBlackJack.cartasOpo.get(1));
-        */
+       
         a = new ImageIcon[miBlackJack.getCartas(52).size()]; //tamaño de las cartas en la mesa
         a = inicializarImageIcon(miBlackJack.getCartas(52), miBlackJack);
         
