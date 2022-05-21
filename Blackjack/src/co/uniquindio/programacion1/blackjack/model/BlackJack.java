@@ -224,5 +224,14 @@ public class BlackJack {
 		return is17;	
 	}
 	
+	public static String saberGanador(ArrayList<Integer> puntaje)
+	{
+		String ganador = "";
+		int sumaOpo = obtenerPuntaje(puntaje);
+		
+		
+		
+	}
+	
 	
 }
