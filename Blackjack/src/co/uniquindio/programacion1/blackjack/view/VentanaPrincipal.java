@@ -57,29 +57,34 @@ public class VentanaPrincipal {
         //ImageIcon miImage = obtenerImagenCarta(miBlackJack.getReverso(), miBlackJack);
         mostrarImagenCarta(a);
         
-        
-        for(int i=0; continuar == true; i++)
-        {	
-        	respuesta = preguntarImagenCarta(a);
-        	if (respuesta == JOptionPane.YES_OPTION) {
-            	JOptionPane.showMessageDialog(null, "Excelente, una nueva carta");
+    }
+    
+    public void darCartas(ImageIcon a[], BlackJack miBlackJack ) throws IOException {
+    	
+    	int respuesta;
+    	boolean continuar = true;
+    	ArrayList<Integer> puntaje = miBlackJack.asignarPuntajeDealer(miBlackJack.cartasOpo);
+    	//
+    	for(int i = 0; continuar == true; i++) {
+    		respuesta = preguntarImagenCarta(a);
+    		if (respuesta == JOptionPane.YES_OPTION) {
             	 miBlackJack.repartirCartasOpo();
-            	 System.out.println("usuario: "+ miBlackJack.cartasOpo.get(0));
-            	 miBlackJack.repartirCartasDealer();
-            	 System.out.println("dealer: "+ miBlackJack.cartasDealer.get(0));
+            	 
             	 a = new ImageIcon[miBlackJack.getCartas(52).size()]; //tamaño de las cartas en la mesa
                  a = inicializarImageIcon(miBlackJack.getCartas(52), miBlackJack);
                  
-                 //ImageIcon miImage = obtenerImagenCarta(miBlackJack.getReverso(), miBlackJack);
                  mostrarImagenCarta(a);
-            	 
-            	
-        } 	else {
-            	JOptionPane.showMessageDialog(null, "Muchas gracias");
-            	continuar = false;
-        	}
-        }
-    }
+                 } else {
+                	 //
+                	 while (!miBlackJack.verificar17(puntaje)) {
+                		 //
+                		 miBlackJack.repartirCartasDealer();
+                	}
+                	 //
+                	 continuar = false;
+                	 }
+    		}
+    	}
 
  /**
   *    

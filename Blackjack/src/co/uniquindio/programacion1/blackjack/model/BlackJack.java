@@ -56,21 +56,31 @@ public class BlackJack {
 	}
 
 	/**
-	 * Devuelve el Arraylist con las cartas 
-	 * que están en el tablero
-	 * hasta el momento
+	 * Devuelve el Arraylist con las cartas que están en el tablero hasta el momento
+	 * @param reverso
 	 * @return El ArrayList
 	 */
 	public ArrayList<Integer> getCartas(int reverso) {
 		ArrayList<Integer> cartas = new ArrayList<>();
-		cartas.add(reverso);
-		for(int i = 0; i < cartasOpo.size(); i++) {
-			cartas.add(cartasOpo.get(i));
-		}
-		for(int i = 0; i < cartasDealer.size(); i++) {
-			cartas.add(cartasDealer.get(i));
+		if ( reverso == 52) {
+			cartas.add(reverso);
+			for(int i = 0; i < cartasOpo.size(); i++) {
+				cartas.add(cartasOpo.get(i));
+			}
+			for(int i = 1; i < cartasDealer.size(); i++) {
+				cartas.add(cartasDealer.get(i));
+			}
+			
+		} else {
+			for(int i = 0; i < cartasOpo.size(); i++) {
+				cartas.add(cartasOpo.get(i));
+			}
+			for(int i = 0; i < cartasDealer.size(); i++) {
+				cartas.add(cartasDealer.get(i));
+			}
 		}
 		return cartas;
+		
 	}
 
 	/**
@@ -111,6 +121,7 @@ public class BlackJack {
 	public int getReverso() {
 		int n = baraja.get(0);
 		baraja.remove(0);
+		cartasDealer.add(n);
 		return n;
 	}
 	
