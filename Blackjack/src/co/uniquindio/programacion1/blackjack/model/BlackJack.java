@@ -224,13 +224,45 @@ public class BlackJack {
 		return is17;	
 	}
 	
-	public static String saberGanador(ArrayList<Integer> puntaje)
+	public String saberGanador(ArrayList<Integer> puntajeOpo, ArrayList<Integer> puntajeDealer)
 	{
-		String ganador = "";
-		int sumaOpo = obtenerPuntaje(puntaje);
+		int sumaOpo = obtenerPuntaje(puntajeOpo);
+		int sumaDealer = obtenerPuntaje(puntajeDealer);
+		String ganador = "perdiste";
 		
+		if(sumaOpo<=21 && sumaDealer <=21)
+		{
+			if(sumaOpo> sumaDealer)
+			{
+				ganador = "Felicitaciones";
+			}
+			else
+			{
+				if (sumaOpo == sumaDealer)
+				{
+					ganador = "Empate";
+				}
+			}
+				
+		}
+		else 
+			{
+			if(sumaOpo <=  21 && sumaDealer >21)
+			{
+				ganador = "Felicitaciones";
+			}
+			else
+			{
+				if(sumaDealer<=21 && sumaOpo>21)
+				{
+					ganador = "Ganador el dealer";
+				}
+			}
+			}
+	
+		return ganador;
 		
-		
+			
 	}
 	
 	
