@@ -114,18 +114,12 @@ public class BlackJack {
 		return n;
 	}
 	
-	/**
-	 * Devuelve el número de la carta que está en la posición
-	 * i
-	 * @param i La posicion dentro del ArrayList
-	 * @return El número correspondiente a la carta que está
-	 * en la posicion
-	 *
-	public  int devolverCartaPosicion(int i) {
-		return cartas.get(i);
-		
-	}*/
 	
+	/**
+	 * asigna valores numéricos a las cartas
+	 * @param cartasOpo
+	 * @return arraylist con el valor numérico de las cartas
+	 */
 	public ArrayList<Integer> asignarPuntajeOpo(ArrayList<Integer> cartasOpo) {
 		
 		ArrayList<Integer> puntaje = new ArrayList<>();
@@ -157,6 +151,11 @@ public class BlackJack {
 	
 	}
 	
+	/**
+	 * asigna valores numéricos a las cartas
+	 * @param cartasDealer
+	 * @return arraylist con el valor numérico de las cartas
+	 */
 	public ArrayList<Integer> asignarPuntajeDealer(ArrayList<Integer> cartasDealer) {
 		
 		ArrayList<Integer> puntaje = new ArrayList<>();
@@ -188,6 +187,11 @@ public class BlackJack {
 	
 	}
 	
+	/**
+	 * obtiene el puntaje total de las cartas
+	 * @param puntaje
+	 * @return puntaje total
+	 */
 	public int obtenerPuntaje(ArrayList<Integer> puntaje)
 	{
 		int suma = 0; 
@@ -199,6 +203,11 @@ public class BlackJack {
 		return suma;		
 	}
 	
+	/**
+	 * le da un valor al as
+	 * @param puntaje
+	 * @return el valor del as
+	 */
 	public int verificarPuntaje(ArrayList<Integer> puntaje)
 	{
 		int suma= obtenerPuntaje(puntaje);
@@ -212,6 +221,11 @@ public class BlackJack {
 		return as;
 	}
 	
+	/**
+	 * verifica que el puntaje del dealer sea menor a 17 puntos
+	 * @param puntaje
+	 * @return si tiene menos de 17 puntos
+	 */
 	public boolean verificar17(ArrayList<Integer> puntaje)
 	{
 		boolean is17 = true;
@@ -224,6 +238,12 @@ public class BlackJack {
 		return is17;	
 	}
 	
+	/**
+	 * determina el ganador
+	 * @param puntajeOpo
+	 * @param puntajeDealer
+	 * @return mensaje final
+	 */
 	public String saberGanador(ArrayList<Integer> puntajeOpo, ArrayList<Integer> puntajeDealer)
 	{
 		int sumaOpo = obtenerPuntaje(puntajeOpo);
