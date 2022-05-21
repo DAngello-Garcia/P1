@@ -36,10 +36,11 @@ public class VentanaPrincipal {
         ImageIcon a[];
         int respuesta, reverso;        
         BlackJack miBlackJack = new BlackJack();
+        boolean continuar = true;
 
         //ImageIcon miImage = obtenerImagenCarta(25, miBlackJack);
         //mostrarImagenCarta(miImage, 11);
-        
+       
         miBlackJack.mezclarBaraja();
         reverso = miBlackJack.getReverso();
         System.out.println("reverso : "+ reverso);
@@ -56,14 +57,22 @@ public class VentanaPrincipal {
         //ImageIcon miImage = obtenerImagenCarta(miBlackJack.getReverso(), miBlackJack);
         mostrarImagenCarta(a);
         
-        respuesta = preguntarImagenCarta(a);
         
-        if (respuesta == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, "Excelente, una nueva carta");
-        } else {
-            JOptionPane.showMessageDialog(null, "Muchas gracias");
+        for(int i=0; continuar == true; i++)
+        {	
+        	respuesta = preguntarImagenCarta(a);
+        	if (respuesta == JOptionPane.YES_OPTION) {
+            	JOptionPane.showMessageDialog(null, "Excelente, una nueva carta");
+            	 miBlackJack.repartirCartasOpo();
+            	 System.out.println("usuario: "+ miBlackJack.cartasOpo.get(0));
+            	 miBlackJack.repartirCartasDealer();
+            	 System.out.println("dealer: "+ miBlackJack.cartasDealer.get(0));
+            	
+        } 	else {
+            	JOptionPane.showMessageDialog(null, "Muchas gracias");
+            	continuar = false;
+        	}
         }
-
     }
 
  /**
@@ -122,6 +131,7 @@ public class VentanaPrincipal {
      * JOptionPane
      * @param valor Valor de la carta o cartas
      */
+    
     public static int preguntarImagenCarta(Object carta) {
         return JOptionPane.showConfirmDialog(null, carta, "Pregunta ", JOptionPane.YES_NO_OPTION, 0, new ImageIcon(VentanaPrincipal.class.getResource("Pregunta.png")));
     }
