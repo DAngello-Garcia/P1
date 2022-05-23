@@ -1,5 +1,6 @@
 package co.uniquindio.programacion1.blackjack.model;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -19,6 +20,9 @@ public class BlackJack {
 	public ArrayList <Integer> cartasDealer;
 	public ArrayList <Integer> baraja;
 	public ArrayList <Integer> cartasOpo;
+	
+	
+	
 	/**
 	 * Metodo para reservarle memoria al ArrayList
 	 */
@@ -26,6 +30,22 @@ public class BlackJack {
 		cartasDealer = new ArrayList<>();
 		baraja = new ArrayList<>();
 		cartasOpo = new ArrayList<>();
+	}
+	
+	/**
+	 * devuelve las cartas del dealer
+	 * @return
+	 */
+	public ArrayList<Integer> getCartasDealer() {
+		return cartasDealer;
+	}
+
+	/**
+	 * devuelve las cartas del oponente
+	 * @return
+	 */
+	public ArrayList<Integer> getCartasOpo() {
+		return cartasOpo;
 	}
 	
 	/**
@@ -84,7 +104,7 @@ public class BlackJack {
 	}
 
 	/**
-	 * Permite obtener el tipo de carta
+	 * Permite obtener el valor del elemento de la columna en la imagen
 	 * @param n El número de la carta 
 	 * @return El tipo de la carta
 	 */
@@ -95,7 +115,7 @@ public class BlackJack {
 	}
 	
 	/**
-	 * Permite obtener el tipo Pinta
+	 * Permite obtener el valor del elemento de la fila en la imagen
 	 * @param n El número de la carta
 	 * @return El tipoPinta
 	 */
@@ -104,14 +124,6 @@ public class BlackJack {
 		int tipoCarta=obtenerTipoCarta(n);
 		tipoPinta = (n - tipoCarta) / MAX_CARTAS_PINTA;
 		return tipoPinta;
-	}
-	
-	/**
-	 * Devuelve la maximo de cartas pinta
-	 * @return  MAX_CARTAS_PINTA
-	 */
-	public  int getMaxCartasPinta() {
-		return MAX_CARTAS_PINTA;
 	}
 	
 	/**
@@ -125,40 +137,41 @@ public class BlackJack {
 		return n;
 	}
 	
-	
 	/**
 	 * asigna valores numéricos a las cartas
 	 * @param cartasOpo
 	 * @return arraylist con el valor numérico de las cartas
 	 */
-	public ArrayList<Integer> asignarPuntajeOpo(ArrayList<Integer> cartasOpo) {
+	public int asignarPuntajeOpo(ArrayList<Integer> cartasOpo) {
 		
 		ArrayList<Integer> puntaje = new ArrayList<>();
 		int numero = 0;
 		int as = 0;
+		int punt = 0;
 		
 		for (int i = 0; i<cartasOpo.size(); i++)
 		{
 			numero = obtenerTipoCarta(cartasOpo.get(i));
 			if(numero> 0 && numero < 10)
 			{
-				puntaje.set(i, numero +1);
+				puntaje.add(numero + 1);
 			}
 			else
 			{
 				if(numero == 0)
 				{
 					as = verificarPuntaje(puntaje);
-					puntaje.set(i, as);
+					puntaje.add(as);
 					
 				}
 				else
 				{
-					puntaje.set(i, 10);
+					puntaje.add(10);
 				}
 			}
 		}
-		return puntaje;
+		punt = obtenerPuntaje(puntaje);
+		return punt;
 	
 	}
 	
@@ -167,34 +180,35 @@ public class BlackJack {
 	 * @param cartasDealer
 	 * @return arraylist con el valor numérico de las cartas
 	 */
-	public ArrayList<Integer> asignarPuntajeDealer(ArrayList<Integer> cartasDealer) {
+	public int asignarPuntajeDealer(ArrayList<Integer> cartasDealer) {
 		
 		ArrayList<Integer> puntaje = new ArrayList<>();
 		int numero = 0;
 		int as=0;
-		
+		int punt = 0;
 		for (int i = 0; i<cartasDealer.size(); i++)
 		{
 			numero = obtenerTipoCarta(cartasDealer.get(i));
 			if(numero> 0 && numero < 10)
 			{
-				puntaje.set(i, numero +1);
+				puntaje.add(numero + 1);
 			}
 			else
 			{
 				if(numero == 0)
 				{
 					as = verificarPuntaje(puntaje);
-					puntaje.set(i, as);
+					puntaje.add(as);
 					
 				}
 				else
 				{
-					puntaje.set(i, 10);
+					puntaje.add(10);
 				}
 			}
 		}
-		return puntaje;
+		punt = obtenerPuntaje(puntaje);
+		return punt;
 	
 	}
 	
@@ -237,12 +251,11 @@ public class BlackJack {
 	 * @param puntaje
 	 * @return si tiene menos de 17 puntos
 	 */
-	public boolean verificar17(ArrayList<Integer> puntaje)
+	public boolean verificar17(int puntaje)
 	{
 		boolean is17 = true;
-		int suma= obtenerPuntaje(puntaje);
 		
-		if(suma < 17)
+		if(puntaje < 17)
 			
 			is17 = false;
 		
@@ -255,38 +268,40 @@ public class BlackJack {
 	 * @param puntajeDealer
 	 * @return mensaje final
 	 */
-	public String saberGanador(ArrayList<Integer> puntajeOpo, ArrayList<Integer> puntajeDealer)
+	public String saberGanador(int puntajeOpo, int puntajeDealer)
 	{
-		int sumaOpo = obtenerPuntaje(puntajeOpo);
-		int sumaDealer = obtenerPuntaje(puntajeDealer);
-		String ganador = "perdiste";
+		String ganador = "Oponente perdió";
 		
-		if(sumaOpo<=21 && sumaDealer <=21)
+		if(puntajeOpo<=21 && puntajeDealer <=21)
 		{
-			if(sumaOpo> sumaDealer)
+			if(puntajeOpo> puntajeDealer)
 			{
-				ganador = "Felicitaciones";
+				ganador = "Oponente ganó";
 			}
 			else
 			{
-				if (sumaOpo == sumaDealer)
+				if (puntajeOpo == puntajeDealer)
 				{
 					ganador = "Empate";
+				} else {
+					ganador = "Gana dealer";
 				}
 			}
 				
 		}
 		else 
 			{
-			if(sumaOpo <=  21 && sumaDealer >21)
+			if(puntajeOpo <=  21 && puntajeDealer >21)
 			{
-				ganador = "Felicitaciones";
+				ganador = "Oponente ganó";
 			}
 			else
 			{
-				if(sumaDealer<=21 && sumaOpo>21)
+				if(puntajeDealer<=21 && puntajeOpo>21)
 				{
 					ganador = "Ganador el dealer";
+				} else {
+					ganador = "Ambos se pasaron y perdieron";
 				}
 			}
 			}
@@ -295,6 +310,6 @@ public class BlackJack {
 		
 			
 	}
-	
+
 	
 }

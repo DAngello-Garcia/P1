@@ -31,56 +31,58 @@ public class VentanaPrincipal {
   * @param args Los argumentos de la línea de comandos
   * @throws IOException
   */
-    public static void main(String[] args) throws IOException
-    {
-        ImageIcon a[];
-        int respuesta, reverso;        
-        BlackJack miBlackJack = new BlackJack();
-        boolean continuar = true;
+    public static void main(String[] args) throws IOException {
 
-        //ImageIcon miImage = obtenerImagenCarta(25, miBlackJack);
-        //mostrarImagenCarta(miImage, 11);
-       
-        miBlackJack.mezclarBaraja();
+        BlackJack miBlackJack = new BlackJack();
+        ImageIcon a[] = null;
+        inicializar(miBlackJack, a);
+        darCartas(a, miBlackJack);
+        
+    }
+    
+    public static void inicializar(BlackJack miBlackJack, ImageIcon a[]) throws IOException {
+        int reverso;
+        
+    	miBlackJack.mezclarBaraja();
         reverso = miBlackJack.getReverso();
         System.out.println("reverso : "+ reverso);
         miBlackJack.repartirCartasOpo();
         System.out.println("usuario: "+ miBlackJack.cartasOpo.get(0));
         miBlackJack.repartirCartasDealer();
-        System.out.println("dealer: "+ miBlackJack.cartasDealer.get(0));
+        System.out.println("dealer: "+ miBlackJack.cartasDealer.get(1));
         miBlackJack.repartirCartasOpo();
         System.out.println("usuario: "+ "/n"+miBlackJack.cartasOpo.get(1));
-       
+        
         a = new ImageIcon[miBlackJack.getCartas(52).size()]; //tamaño de las cartas en la mesa
         a = inicializarImageIcon(miBlackJack.getCartas(52), miBlackJack);
-        
-        //ImageIcon miImage = obtenerImagenCarta(miBlackJack.getReverso(), miBlackJack);
-        mostrarImagenCarta(a);
-        
     }
     
-    public void darCartas(ImageIcon a[], BlackJack miBlackJack ) throws IOException {
+    public static void darCartas(ImageIcon a[], BlackJack miBlackJack ) throws IOException {
     	
     	int respuesta;
     	boolean continuar = true;
-    	ArrayList<Integer> puntaje = miBlackJack.asignarPuntajeDealer(miBlackJack.cartasOpo);
-    	//
-    	for(int i = 0; continuar == true; i++) {
+    	int puntajeDealer = miBlackJack.asignarPuntajeDealer(miBlackJack.getCartasDealer());
+    	int puntajeOpo = miBlackJack.asignarPuntajeOpo(miBlackJack.getCartasOpo());
+    	
+    	a = new ImageIcon[miBlackJack.getCartas(52).size()]; //tamaño de las cartas en la mesa
+        a = inicializarImageIcon(miBlackJack.getCartas(52), miBlackJack);
+        
+    	while(continuar) {
     		respuesta = preguntarImagenCarta(a);
     		if (respuesta == JOptionPane.YES_OPTION) {
             	 miBlackJack.repartirCartasOpo();
             	 
             	 a = new ImageIcon[miBlackJack.getCartas(52).size()]; //tamaño de las cartas en la mesa
                  a = inicializarImageIcon(miBlackJack.getCartas(52), miBlackJack);
-                 
-                 mostrarImagenCarta(a);
                  } else {
-                	 //
-                	 while (!miBlackJack.verificar17(puntaje)) {
-                		 //
+                	 while (!miBlackJack.verificar17(puntajeDealer)) {
                 		 miBlackJack.repartirCartasDealer();
+                		 puntajeDealer = miBlackJack.asignarPuntajeDealer(miBlackJack.getCartasDealer());
                 	}
-                	 //
+                	 a = new ImageIcon[miBlackJack.getCartas(53).size()]; //tamaño de las cartas en la mesa
+                     a = inicializarImageIcon(miBlackJack.getCartas(53), miBlackJack);
+                	 mostrarImagenCarta(a);
+                	 System.out.println(miBlackJack.saberGanador(puntajeOpo, puntajeDealer));
                 	 continuar = false;
                 	 }
     		}
